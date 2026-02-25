@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - VeeramReddy's Kitchen</title>
+    <link rel="stylesheet" href="../CSS/common.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link href='https://cdn.boxicons.com/3.0.7/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <nav class="bg-success p-2 text-white">
+        <div id="lb">
+            <a href="./Home.html">
+                <img id="logo" src="../IMAGES/my brand logo.jpeg" alt="Logo">
+            </a>
+            <a id="brandname" href="./Home.html">
+                <h3>VeeramReddy's Kitchen</h3>
+            </a>
+        </div>
+        <div id="buttons">
+            <div class="user-dropdown">
+                <button class="bt p-3 mb-2 bg-success-subtle text-success-emphasis border border-success">
+                    <h5 id="userInitials">U</h5>
+                </button>
+                <div class="dropdown-card">
+                    <a href="./UserDashboard.html" class="dropdown-item">
+                        <button class="dropdown-btn">Dashboard</button>
+                    </a>
+                    <a href="./Cart.html" class="dropdown-item">
+                        <button class="dropdown-btn">Cart</button>
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="logout()">
+                        <button class="dropdown-btn">Logout</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="text-success mb-4">Order History</h2>
+        
+        <div id="ordersContainer">
+            <!-- Orders will be loaded here -->
+        </div>
+
+        <div id="loading" class="text-center py-5">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JAVASCRIPT/OrderHistory.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav{
+    width: 100%;
+    display: flex;
+    height: 4em;
+    justify-content: space-between;
+    align-items: center;
+}
+#lb{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+#logo{
+    height: 4em;
+    width: 4em;
+    border-radius: 100%;
+    margin-left: 1em;
+}
+#brandname{
+    text-decoration: none;
+    color: aliceblue;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+}
+#buttons{
+    display: flex;
+    gap: 1em;
+    margin-top: 0.6em;
+    margin-right: 1em;
+}
+.bt{
+    height: 3em;
+    width: 7em;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card img {
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+.card img:hover {
+    transform: scale(1.1);
+}
+.card .col-md-4 {
+    overflow: hidden;
+}
+.card{
+    margin-top: 1em;
+    margin-left: 0.5em;
+}
+.row{
+    /* border: 2px solid red; */
+    margin: 1em;
+
+}
+.img-fluid{
+     /* border: 2px solid red;  */
+     border-radius: 15px;
+    
+}
+.card-title{
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    margin: 2em;
+    text-decoration: underline;
+}
+.card-text{
+    font-size: 20px;
+    margin-left: 2em;
+    margin-top: 1em;
+}
+.card img:hover {
+    transform: scale(1.1);
+}
+footer {
+    background-color: #198754;
+    color: white;
+    height: 12em;
+    padding-top: 1em;
+    margin-top: 2em;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.footer-logo {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.footer-links a:hover {
+    color: #d4edda;
+}
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+}
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-card {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #198754;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 150px;
+    height: 100px;
+    z-index: 1000;
+}
+.user-dropdown:hover .dropdown-card {
+    display: block;
+}
+.dropdown-item {
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem;
+}
+.dropdown-btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #f8f9fa;
+    color: #198754;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.dropdown-btn:hover {
+    background: #198754;
+    color: white;
+}

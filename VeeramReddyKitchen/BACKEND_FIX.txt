@@ -1,0 +1,26 @@
+Update your CartDao.createCart() method to this:
+
+public Cart createCart(Long userId) {
+    // Check if cart already exists for this user
+    Cart existingCart = repo.findByUser_UserId(userId);
+    if (existingCart != null) {
+        return existingCart; // Return existing cart
+    }
+    
+    // Create new cart only if doesn't exist
+    Optional<App_User> userOpt = urepo.findById(userId);
+    if (userOpt.isPresent()) {
+        Cart cart = new Cart();
+        cart.setUser(userOpt.get());
+        return repo.save(cart);
+    }
+    return null;
+}
+
+This will:
+1. Check if cart already exists for the user
+2. Return existing cart if found
+3. Create new cart only if it doesn't exist
+4. Save the cart with userId properly
+
+After updating, restart your backend and try adding items again.

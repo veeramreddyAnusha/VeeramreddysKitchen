@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile - VeeramReddy's Kitchen</title>
+    <link rel="stylesheet" href="../CSS/common.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link href='https://cdn.boxicons.com/3.0.7/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <nav class="bg-success p-2 text-white">
+        <div id="lb">
+            <a href="./Home.html">
+                <img id="logo" src="../IMAGES/my brand logo.jpeg" alt="Logo">
+            </a>
+            <a id="brandname" href="./Home.html">
+                <h3>VeeramReddy's Kitchen</h3>
+            </a>
+        </div>
+        <div id="buttons">
+            <div class="user-dropdown">
+                <button class="bt p-3 mb-2 bg-success-subtle text-success-emphasis border border-success">
+                    <h5 id="adminInitials">A</h5>
+                </button>
+                <div class="dropdown-card">
+                    <a href="./FoodItem.html" class="dropdown-item">
+                        <button class="dropdown-btn">Menu</button>
+                    </a>
+                    <a href="#" class="dropdown-item" onclick="logout()">
+                        <button class="dropdown-btn">Logout</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h4>Admin Profile</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Name -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4"><strong>Name:</strong></div>
+                            <div class="col-md-6">
+                                <span id="displayName"></span>
+                                <input type="text" class="form-control" id="editName" style="display: none;">
+                            </div>
+                            <div class="col-md-2">
+                                <i class='bx bx-edit' style="cursor: pointer; font-size: 20px;" onclick="enableEdit('name')"></i>
+                                <i class='bx bx-check' style="cursor: pointer; font-size: 20px; display: none; color: green;" onclick="saveEdit('name')"></i>
+                                <i class='bx bx-x' style="cursor: pointer; font-size: 20px; display: none; color: red;" onclick="cancelEdit('name')"></i>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4"><strong>Email:</strong></div>
+                            <div class="col-md-6">
+                                <span id="displayEmail"></span>
+                                <input type="email" class="form-control" id="editEmail" style="display: none;">
+                            </div>
+                            <div class="col-md-2">
+                                <i class='bx bx-edit' style="cursor: pointer; font-size: 20px;" onclick="enableEdit('email')"></i>
+                                <i class='bx bx-check' style="cursor: pointer; font-size: 20px; display: none; color: green;" onclick="saveEdit('email')"></i>
+                                <i class='bx bx-x' style="cursor: pointer; font-size: 20px; display: none; color: red;" onclick="cancelEdit('email')"></i>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4"><strong>Phone:</strong></div>
+                            <div class="col-md-6">
+                                <span id="displayPhone"></span>
+                                <input type="number" class="form-control" id="editPhone" style="display: none;">
+                            </div>
+                            <div class="col-md-2">
+                                <i class='bx bx-edit' style="cursor: pointer; font-size: 20px;" onclick="enableEdit('phone')"></i>
+                                <i class='bx bx-check' style="cursor: pointer; font-size: 20px; display: none; color: green;" onclick="saveEdit('phone')"></i>
+                                <i class='bx bx-x' style="cursor: pointer; font-size: 20px; display: none; color: red;" onclick="cancelEdit('phone')"></i>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-4"><strong>Address:</strong></div>
+                            <div class="col-md-6">
+                                <span id="displayAddress"></span>
+                                <textarea class="form-control" id="editAddress" rows="2" style="display: none;"></textarea>
+                            </div>
+                            <div class="col-md-2">
+                                <i class='bx bx-edit' style="cursor: pointer; font-size: 20px;" onclick="enableEdit('address')"></i>
+                                <i class='bx bx-check' style="cursor: pointer; font-size: 20px; display: none; color: green;" onclick="saveEdit('address')"></i>
+                                <i class='bx bx-x' style="cursor: pointer; font-size: 20px; display: none; color: red;" onclick="cancelEdit('address')"></i>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JAVASCRIPT/AdminProfile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

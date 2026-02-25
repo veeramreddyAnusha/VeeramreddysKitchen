@@ -1,0 +1,329 @@
+/* Common styles for all pages */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navigation styles */
+nav{
+    width: 100%;
+    display: flex;
+    height: 4em;
+    justify-content: space-between;
+    align-items: center;
+}
+#lb{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+#logo{
+    height: 4em;
+    width: 4em;
+    border-radius: 100%;
+    margin-left: 1em;
+}
+#brandname{
+    text-decoration: none;
+    color: aliceblue;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 700;
+}
+#buttons{
+    display: flex;
+    gap: 1em;
+    margin-top: 0.6em;
+    margin-right: 1em;
+}
+.bt{
+    height: 3em;
+    width: 7em;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dropdown styles */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-card {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #198754;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 150px;
+    height: 100px;
+    z-index: 1000;
+}
+.user-dropdown:hover .dropdown-card {
+    display: block;
+}
+.dropdown-item {
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem;
+}
+.dropdown-btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #f8f9fa;
+    color: #198754;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.dropdown-btn:hover {
+    background: #198754;
+    color: white;
+}
+
+/* Footer styles */
+footer {
+    background-color: #198754;
+    color: white;
+    height: 12em;
+    padding-top: 1em;
+    margin-top: 2em;
+}
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.footer-logo {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.footer-links a:hover {
+    color: #d4edda;
+}
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+}
+
+
+
+.admin-gate {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gate-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 320px;
+    text-align: center;
+}
+
+
+
+
+
+/* Food Items styles */
+.food-item-card {
+    transition: transform 0.3s ease;
+    border: 1px solid #198754;
+    border-radius: 10px;
+}
+.food-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(25, 135, 84, 0.2);
+}
+.food-item-image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+.food-item-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #198754;
+}
+.food-item-quantity {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+.food-item-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #198754;
+}
+.hidden {
+    display: none;
+}
+ .login-container {
+            max-width: 400px;
+            margin: 3rem auto;
+            padding: 2rem;
+            border: 1px solid #198754;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+        }
+
+        .signup-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+    border: 1px solid #198754;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.form-control:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+.add-category {
+  display: none;   
+}
+
+
+
+
+.menu-bar {
+  display: flex;
+  align-items: center;
+  background-color: #0f0e0e;
+  padding: 6px 13px;
+  border-bottom: 1px solid #786e6e;
+  color: white;
+  padding-left: 3em;
+}
+
+/* CATEGORY LIST */
+.menu-bar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+/* CATEGORY ITEM */
+.menu-bar li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ICONS */
+.menu-bar .icon {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* DELETE ICON HIDDEN INITIALLY */
+.menu-bar .delete {
+  display: none;
+  color: red;
+}
+
+/* ADD CATEGORY AT END */
+.add-category {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* pushes it to end */
+  gap: 6px;
+}
+
+.add-category input {
+  padding: 4px 6px;
+}
+
+
+
+
+.category-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.category-bar button {
+  padding: 6px 14px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.category-bar button:hover {
+  background: #ccc;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.food-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.food-item img {
+  width: 10% !important;
+  height: 150px !important;
+  object-fit: cover !important;
+  border-radius: 6px ;
+}
+
+
+.category-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.category-bar button {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+}
+
+.category-bar button.active {
+  background: #ff9800;
+  color: #fff;
+}
+
+
+
+
+
+
