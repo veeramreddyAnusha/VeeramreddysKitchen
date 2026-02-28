@@ -922,7 +922,7 @@ function deleteCategory(id) {
     alert(data.message || "Category deleted");
 
    fetchCategories();
-    fetchFoodItems(); 
+   loadFoodItems();
 
 
 

@@ -66,7 +66,7 @@ public class UserController {
 	@PutMapping("/UserUpdate")
 	
 	public ResponseEntity<ResponseStructure<App_User>> userUpdate(@RequestBody App_User user){
-		return service.userUpdate(user);
+		return service.updateUser(user);
 		
 	}
 }

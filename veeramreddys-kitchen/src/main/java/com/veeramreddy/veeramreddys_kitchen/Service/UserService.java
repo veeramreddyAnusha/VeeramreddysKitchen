@@ -1,6 +1,7 @@
 package com.veeramreddy.veeramreddys_kitchen.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,20 +46,38 @@ public class UserService {
     }
     
 //    ---------------------------------------------------------------------------------------------
-
+    
     public ResponseEntity<ResponseStructure<App_User>> deleteUser(long userId) {
-        App_User db = dao.deleteUser(userId);
 
-        if (db != null) {
+        Optional<App_User> optional = repo.findById(userId);
+
+        if (optional.isPresent()) {
+
+            repo.deleteById(userId);
+
             ResponseStructure<App_User> structure = new ResponseStructure<>();
-            structure.setMessage("Deleted successfully");
-            structure.setStatus(HttpStatus.OK.value());
-            structure.setData(db);
+            structure.setStatus(200);
+            structure.setMessage("User deleted successfully");
+            structure.setData(null);
+
             return new ResponseEntity<>(structure, HttpStatus.OK);
+
         } else {
-            throw new NoSuchElementFoundException("User ID not found in the database.");
+
+            ResponseStructure<App_User> structure = new ResponseStructure<>();
+            structure.setStatus(404);
+            structure.setMessage("User id not found");
+            structure.setData(null);
+
+            return new ResponseEntity<>(structure, HttpStatus.NOT_FOUND);
         }
     }
+    
+    
+    
+    
+    
+    
     
     
 //    -----------------------------------------------------------------------------------------------
@@ -122,20 +141,36 @@ public class UserService {
 	}
 
 //	--------------------------------------------------------------------------------------------
-	
-	public ResponseEntity<ResponseStructure<App_User>> userUpdate(App_User user) {
-		ResponseStructure<App_User> structure =new ResponseStructure<App_User>();
-		
-		App_User us=dao.getUserById(user.getUserId());
-		if(us !=null) {
-			structure.setData((dao.userUpdate(user)));
-			structure.setMessage("User updated Successfully");
-			structure.setStatus((HttpStatus.FOUND.value()));
-			
-			return new ResponseEntity<ResponseStructure<App_User>>(structure,HttpStatus.FOUND);
-			
-		}
-		else throw new NoSuchElementFoundException("User not foun on this user id"+user.getUserId());
+
+	public ResponseEntity<ResponseStructure<App_User>> updateUser(App_User user) {
+
+	    Optional<App_User> optional = repo.findById(user.getUserId());
+
+	    if (optional.isPresent()) {
+
+	        App_User existingUser = optional.get();
+
+	        existingUser.setFullName(user.getFullName());
+	        existingUser.setEmail(user.getEmail());
+	        existingUser.setPhone(user.getPhone());
+	        existingUser.setAddress(user.getAddress());
+
+	        App_User updatedUser = repo.save(existingUser);
+
+	        ResponseStructure<App_User> structure = new ResponseStructure<>();
+	        structure.setStatus(200);
+	        structure.setMessage("User updated successfully");
+	        structure.setData(updatedUser);
+
+	        return new ResponseEntity<>(structure, HttpStatus.OK);
+	    }
+
+	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+	
+	
+	
+	
+	
 	
 }
