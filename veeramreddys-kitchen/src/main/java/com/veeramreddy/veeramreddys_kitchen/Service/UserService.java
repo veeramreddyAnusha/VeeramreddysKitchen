@@ -13,6 +13,9 @@ import com.veeramreddy.veeramreddys_kitchen.Dto.App_User;
 import com.veeramreddy.veeramreddys_kitchen.Exception.EmailNotFound;
 import com.veeramreddy.veeramreddys_kitchen.Exception.NoSuchElementFoundException;
 import com.veeramreddy.veeramreddys_kitchen.Exception.PaswordIncorrect;
+import com.veeramreddy.veeramreddys_kitchen.Repo.CartItemRepo;
+import com.veeramreddy.veeramreddys_kitchen.Repo.CartRepo;
+import com.veeramreddy.veeramreddys_kitchen.Repo.OrderRepo;
 import com.veeramreddy.veeramreddys_kitchen.Repo.UserRepo;
 import com.veeramreddy.veeramreddys_kitchen.Util.ResponseStructure;
 
@@ -24,6 +27,12 @@ public class UserService {
     
     @Autowired
     private UserRepo repo;
+    
+    @Autowired
+    private OrderRepo orepo;
+    
+    @Autowired
+    private CartRepo crepo;
 
     public ResponseEntity<ResponseStructure<App_User>> saveUser(App_User user) {
     	
@@ -51,11 +60,14 @@ public class UserService {
 
         Optional<App_User> optional = repo.findById(userId);
 
+        ResponseStructure<App_User> structure = new ResponseStructure<>();
+
         if (optional.isPresent()) {
 
-            repo.deleteById(userId);
+            App_User user = optional.get();
 
-            ResponseStructure<App_User> structure = new ResponseStructure<>();
+            repo.delete(user);
+
             structure.setStatus(200);
             structure.setMessage("User deleted successfully");
             structure.setData(null);
@@ -64,20 +76,13 @@ public class UserService {
 
         } else {
 
-            ResponseStructure<App_User> structure = new ResponseStructure<>();
             structure.setStatus(404);
-            structure.setMessage("User id not found");
+            structure.setMessage("User not found");
             structure.setData(null);
 
             return new ResponseEntity<>(structure, HttpStatus.NOT_FOUND);
         }
     }
-    
-    
-    
-    
-    
-    
     
     
 //    -----------------------------------------------------------------------------------------------

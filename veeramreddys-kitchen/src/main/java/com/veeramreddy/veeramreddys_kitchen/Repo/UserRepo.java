@@ -8,7 +8,7 @@ import com.veeramreddy.veeramreddys_kitchen.Dto.App_User;
 
 public interface UserRepo extends JpaRepository<App_User, Long> {
 
-	public App_User findByEmail(String email);
+	 App_User findByEmail(String email);
 	
 	 boolean existsByEmail(String email);
 

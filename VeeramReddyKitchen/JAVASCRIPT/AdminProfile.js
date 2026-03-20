@@ -1,127 +1,193 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", () => {
     checkAdminAuth();
     loadAdminProfile();
 });
 
 function checkAdminAuth() {
-    const adminData = localStorage.getItem('adminData');
-    if (!adminData) {
-        window.location.href = './AdminLogin.html';
-        return;
+    const stored = localStorage.getItem("adminData");
+    if (!stored) {
+        window.location.href = "./AdminLogin.html";
     }
 }
 
-function loadAdminProfile() {
-    const adminData = JSON.parse(localStorage.getItem('adminData'));
-    if (adminData) {
-        document.getElementById('adminInitials').textContent = adminData.name.charAt(0).toUpperCase();
-        document.getElementById('displayName').textContent = adminData.name || '';
-        document.getElementById('displayEmail').textContent = adminData.email || '';
-        document.getElementById('displayPhone').textContent = adminData.phone || 'Not provided';
-        document.getElementById('displayAddress').textContent = adminData.address || 'Not provided';
-        
-        document.getElementById('editName').value = adminData.name || '';
-        document.getElementById('editEmail').value = adminData.email || '';
-        document.getElementById('editPhone').value = adminData.phone || '';
-        document.getElementById('editAddress').value = adminData.address || '';
+async function loadAdminProfile() {
+
+    const stored = localStorage.getItem("adminData");
+    if (!stored) return;
+
+    const adminData = JSON.parse(stored);
+
+    if (!adminData.adminId) return;
+
+    try {
+
+        const response = await fetch(
+            `http://localhost:8080/FindAdminById?adminId=${adminData.adminId}`
+        );
+
+        const result = await response.json();
+
+        console.log("Backend Response:", result);
+
+        if (result.status === 302 && result.data) {
+
+            const admin = result.data;
+
+            localStorage.setItem("adminData", JSON.stringify(admin));
+
+            document.getElementById("displayName").textContent =
+                admin.name || "Not provided";
+
+            document.getElementById("displayEmail").textContent =
+                admin.email || "Not provided";
+
+            document.getElementById("displayPhone").textContent =
+                admin.phone ?? "Not provided";
+
+            document.getElementById("displayAddress").textContent =
+                admin.address || "Not provided";
+
+            document.getElementById("editName").value =
+                admin.name || "";
+
+            document.getElementById("editEmail").value =
+                admin.email || "";
+
+            document.getElementById("editPhone").value =
+                admin.phone || "";
+
+            document.getElementById("editAddress").value =
+                admin.address || "";
+
+        } else {
+            alert("Admin not found");
+        }
+
+    } catch (error) {
+        console.error("Fetch error:", error);
     }
 }
 
 function enableEdit(field) {
-    const display = document.getElementById(`display${field.charAt(0).toUpperCase() + field.slice(1)}`);
-    const input = document.getElementById(`edit${field.charAt(0).toUpperCase() + field.slice(1)}`);
-    const row = display.closest('.row');
-    
-    display.style.display = 'none';
-    input.style.display = 'block';
-    
-    row.querySelector('.bx-edit').style.display = 'none';
-    row.querySelector('.bx-check').style.display = 'inline';
-    row.querySelector('.bx-x').style.display = 'inline';
+
+    const display = document.getElementById(`display${capitalize(field)}`);
+    const input = document.getElementById(`edit${capitalize(field)}`);
+    const row = display.closest(".row");
+
+    display.style.display = "none";
+    input.style.display = "block";
+
+    row.querySelector(".bx-edit").style.display = "none";
+    row.querySelector(".bx-check").style.display = "inline";
+    row.querySelector(".bx-x").style.display = "inline";
 }
 
 function cancelEdit(field) {
-    const display = document.getElementById(`display${field.charAt(0).toUpperCase() + field.slice(1)}`);
-    const input = document.getElementById(`edit${field.charAt(0).toUpperCase() + field.slice(1)}`);
-    const row = display.closest('.row');
-    
-    display.style.display = 'inline';
-    input.style.display = 'none';
-    
-    row.querySelector('.bx-edit').style.display = 'inline';
-    row.querySelector('.bx-check').style.display = 'none';
-    row.querySelector('.bx-x').style.display = 'none';
-    
-    loadAdminProfile();
+
+    const display = document.getElementById(`display${capitalize(field)}`);
+    const input = document.getElementById(`edit${capitalize(field)}`);
+    const row = display.closest(".row");
+
+    display.style.display = "inline";
+    input.style.display = "none";
+
+    row.querySelector(".bx-edit").style.display = "inline";
+    row.querySelector(".bx-check").style.display = "none";
+    row.querySelector(".bx-x").style.display = "none";
 }
 
 async function saveEdit(field) {
-    const adminData = JSON.parse(localStorage.getItem('adminData'));
-    const input = document.getElementById(`edit${field.charAt(0).toUpperCase() + field.slice(1)}`);
-    const newValue = input.value;
-    
-    if (!newValue && field !== 'address' && field !== 'phone') {
-        alert('Field cannot be empty');
+
+    const adminData = JSON.parse(localStorage.getItem("adminData"));
+    if (!adminData || !adminData.adminId) {
+        alert("Admin not found");
         return;
     }
-    
+
+    const input = document.getElementById(`edit${capitalize(field)}`);
+    const newValue = input.value.trim();
+
     const updateData = {
-        adminId: adminData.adminId,
-        name: field === 'name' ? newValue : adminData.name,
-        email: field === 'email' ? newValue : adminData.email,
-        phone: field === 'phone' ? (newValue ? parseInt(newValue) : null) : adminData.phone,
-        address: field === 'address' ? newValue : adminData.address
-    };
-    
+    adminId: adminData.adminId,
+    name: field === "name" ? newValue : adminData.name,
+    email: field === "email" ? newValue : adminData.email,
+    phone: field === "phone"
+        ? (newValue === "" ? null : parseInt(newValue))
+        : adminData.phone,
+    address: field === "address"
+        ? newValue
+        : adminData.address
+  };
+
     try {
-        const response = await fetch('http://localhost:8080/AdminUpdate', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updateData)
+
+        const response = await fetch("http://localhost:8080/AdminUpdate", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updateData)   // ✅ FIXED
         });
-        
-        if (response.ok || response.status === 302) {
-            adminData[field] = field === 'phone' ? (newValue ? parseInt(newValue) : null) : newValue;
-            localStorage.setItem('adminData', JSON.stringify(adminData));
-            
-            const display = document.getElementById(`display${field.charAt(0).toUpperCase() + field.slice(1)}`);
-            display.textContent = newValue || 'Not provided';
-            
+
+        const result = await response.json();
+
+        console.log("Update Response:", result);
+
+        if (result.status === 302) {
+
+            if (result.data) {
+                localStorage.setItem("adminData", JSON.stringify(result.data));
+            }
+
+            loadAdminProfile();
             cancelEdit(field);
-            alert('Updated successfully!');
+
+            alert("Updated successfully!");
+
         } else {
-            alert('Failed to update');
+            alert("Update failed");
         }
+
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error updating profile');
+        console.error("Update error:", error);
+        alert("Server error while updating");
     }
 }
 
 function logout() {
-    localStorage.removeItem('adminData');
-    window.location.href = './Home.html';
+
+    localStorage.removeItem("adminData");
+
+    window.location.href = "./Home.html";
 }
 
 async function deleteAccount() {
-    if (!confirm('Are you sure you want to delete your admin account? This action cannot be undone!')) return;
-    
-    const adminData = JSON.parse(localStorage.getItem('adminData'));
-    
+
+    const confirmDelete = confirm("Are you sure you want to delete account?");
+    if (!confirmDelete) return;
+
+    const adminData = JSON.parse(localStorage.getItem("adminData"));
+
     try {
-        const response = await fetch(`http://localhost:8080/deleteAdmin?adminId=${adminData.adminId}`, {
-            method: 'DELETE'
-        });
-        
-        if (response.ok || response.status === 302) {
-            alert('Account deleted successfully!');
-            localStorage.removeItem('adminData');
-            window.location.href = './Home.html';
+
+        const response = await fetch(
+            `http://localhost:8080/deleteAdmin?adminId=${adminData.adminId}`,
+            { method: "DELETE" }
+        );
+
+        if (response.ok) {
+
+            localStorage.removeItem("adminData");
+
+            window.location.href = "./Home.html";
+
         } else {
-            alert('Failed to delete account');
+            alert("Delete failed");
         }
+
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error deleting account');
+        console.error("Delete error:", error);
     }
+}
+
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
 }
